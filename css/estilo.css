@@ -22,6 +22,9 @@
   --cor-fundo: #FFFFFF;
   --cor-fundo-alt: #F7F4F8;
 
+  /* Cor de estado */
+  --cor-erro: #B3261E;
+
   /* Tipografia: escala modular de razão 1,2 a partir de 16px */
   --fonte-base: "Segoe UI", Arial, Helvetica, sans-serif;
   --texto-base: 1rem;      /* 16px   - corpo */
@@ -306,12 +309,155 @@ button {
   background-color: var(--cor-primaria);
   color: var(--cor-fundo);
   cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-button:hover,
-button:focus { background-color: var(--cor-secundaria); }
+/* ponteiro sobre o botão: escurece e ganha sombra */
+button:hover {
+  background-color: var(--cor-secundaria);
+  box-shadow: 0 2px 6px rgba(28, 27, 31, 0.25);
+}
 
-/* rodapé */
+/* botão pressionado: afunda 1px e perde a sombra */
+button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* botão desativado: perde cor, sombra e o cursor de clique */
+button:disabled {
+  background-color: var(--cor-borda);
+  color: var(--cor-texto-suave);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* --- FEEDBACK VISUAL DO FORMULÁRIO --- */
+
+input,
+select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* campo em uso */
+input:focus,
+select:focus {
+  border-color: var(--cor-primaria);
+}
+
+/* erro: só depois que a pessoa mexeu no campo */
+input:user-invalid,
+select:user-invalid {
+  border-color: var(--cor-erro);
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.15);
+}
+
+/* sucesso: campo preenchido dentro do formato */
+input:user-valid,
+select:user-valid {
+  border-color: var(--cor-secundaria);
+  box-shadow: 0 0 0 3px rgba(47, 107, 76, 0.15);
+}
+
+/* --- ETIQUETAS (badges) --- */
+
+.etiqueta {
+  align-self: flex-start;
+  margin-bottom: var(--espaco-2);
+  padding: 0.125rem var(--espaco-2);
+  border-radius: 999px;
+  font-size: var(--texto-base);
+  color: var(--cor-fundo);
+}
+
+.etiqueta-educacao { background-color: var(--cor-primaria); }
+.etiqueta-alimentacao { background-color: var(--cor-secundaria); }
+.etiqueta-capacitacao { background-color: var(--cor-texto-suave); }
+
+/* --- CAIXAS DE ALERTA --- */
+
+.alerta {
+  padding: var(--espaco-2) var(--espaco-3);
+  border-left: 4px solid;
+  border-radius: var(--raio);
+  color: var(--cor-texto);
+}
+
+.alerta-info {
+  border-color: var(--cor-primaria);
+  background-color: rgba(168, 61, 116, 0.08);
+}
+
+.alerta-sucesso {
+  border-color: var(--cor-secundaria);
+  background-color: rgba(47, 107, 76, 0.08);
+}
+
+.alerta-erro {
+  border-color: var(--cor-erro);
+  background-color: rgba(179, 38, 30, 0.08);
+}
+
+/* --- MODAL (aberto pelo alvo da URL, sem JavaScript) --- */
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espaco-3);
+  background-color: rgba(28, 27, 31, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* o modal abre quando o seu id vira o alvo do endereço */
+.modal:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-caixa {
+  max-width: 34rem;
+  padding: var(--espaco-4);
+  border-radius: var(--raio);
+  background-color: var(--cor-fundo);
+  box-shadow: 0 8px 24px rgba(28, 27, 31, 0.3);
+  transform: translateY(-1rem);
+  transition: transform 0.25s ease;
+}
+
+.modal:target .modal-caixa {
+  transform: translateY(0);
+}
+
+.modal-caixa h2 {
+  margin-top: 0;
+}
+
+.modal-fechar {
+  display: inline-block;
+  padding: var(--espaco-1) var(--espaco-3);
+  border-radius: var(--raio);
+  background-color: var(--cor-primaria);
+  color: var(--cor-fundo);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.modal-fechar:hover,
+.modal-fechar:focus {
+  background-color: var(--cor-secundaria);
+  color: var(--cor-fundo);
+}
+
+/* rodapé
 footer {
   max-width: none;
   padding: var(--espaco-4) var(--espaco-3);
