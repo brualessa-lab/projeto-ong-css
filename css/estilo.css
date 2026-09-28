@@ -457,7 +457,8 @@ select:user-valid {
   color: var(--cor-fundo);
 }
 
-/* rodapé
+/* rodapé */
+
 footer {
   max-width: none;
   padding: var(--espaco-4) var(--espaco-3);
